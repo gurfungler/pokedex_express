@@ -1,0 +1,11 @@
+pokemon:
+    name
+    type
+    stats
+    egg group
+    region
+    moves
+    generation
+    gender
+    evolution
+    number
