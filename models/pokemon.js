@@ -5,9 +5,13 @@ const Schema = mongoose.Schema;
 PokemonSchema = new Schema({
   name: { type: String, required: true },
   type: { type: Schema.Types.ObjectId, ref: "Type", required: true },
-  stats: { type: String, required: true },
-  region: { type: Schema.Types.ObjectId, ref: "Region" },
-  gender: [{ type: String, required: true }],
-  evolution: { type: Schema.Types.ObjectId, ref: "Pokemon" },
+  region: { type: [Schema.Types.ObjectId], ref: "Region" },
   number: { type: Number, required: true },
+  description: { type: String, required: true },
+});
+
+// Virtual for pokemon's URL
+PokemonSchema.virtual("url").get(function () {
+  // We don't use an arrow function as we'll need the this object
+  return `/pokedex/pokemon/${this._id}`;
 });
