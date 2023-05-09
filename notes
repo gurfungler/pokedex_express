@@ -1,11 +1,12 @@
 pokemon:
     name
     type
+        weakness/strength
     stats
-    egg group
     region
-    moves
-    generation
+        generation
+        pokemon
     gender
     evolution
     number
+    description
