@@ -4,8 +4,8 @@ pokemon:
         weakness/strength
     stats
     region
+        name
         generation
-        pokemon
     gender
     evolution
     number

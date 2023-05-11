@@ -1,4 +1,4 @@
-const Poekmon = require("../models/pokemon");
+const Pokemon = require("../models/pokemon");
 const Type = require("../models/type");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
@@ -87,6 +87,7 @@ exports.pokemon_create_post = [
     }
   }),
 ];
+
 // Display Author delete form on GET.
 exports.author_delete_get = asyncHandler(async (req, res, next) => {
   // Get details of author and all their books (in parallel)
