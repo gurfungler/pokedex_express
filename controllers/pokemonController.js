@@ -84,14 +84,14 @@ exports.pokemon_create_post = [
   }),
 ];
 
-// Display Author delete form on GET.
+// Display Pokemon delete form on GET.
 exports.pokemon_delete_get = asyncHandler(async (req, res, next) => {
   // Get details of pokemon
-  const [pokemon] = await Promise.all([Author.findById(req.params.id).exec()]);
+  const [pokemon] = await Promise.all([Pokemon.findById(req.params.id).exec()]);
 
   if (pokemon === null) {
     // No results.
-    res.redirect("/");
+    res.redirect("/pokedex/pokemon");
   }
 
   res.render("pokemon_delete", {
@@ -106,16 +106,16 @@ exports.pokemon_delete_post = asyncHandler(async (req, res, next) => {
   const [pokemon] = await Promise.all([Pokemon.findById(req.params.id).exec()]);
 
   // Delete object and redirect to the list of pokemon.
-  await Pokemon.findByIdAndRemove(req.body.authorid);
-  res.redirect("/");
+  await Pokemon.findByIdAndRemove(req.body.pokemonid);
+  res.redirect("/pokedex/pokemon");
 });
 
 // Display POkemon update form on GET.
-exports.author_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author update GET");
+exports.pokemon_update_get = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Pokemon update GET");
 });
 
-// Handle Author update on POST.
-exports.author_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author update POST");
+// Handle Pokemon update on POST.
+exports.pokemon_update_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Pokemon update POST");
 });

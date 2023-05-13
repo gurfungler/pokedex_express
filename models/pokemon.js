@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-PokemonSchema = new Schema({
+const PokemonSchema = new Schema({
   name: { type: String, required: true },
   type: { type: Schema.Types.ObjectId, ref: "Type", required: true },
   region: { type: [Schema.Types.ObjectId], ref: "Region" },

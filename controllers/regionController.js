@@ -2,7 +2,7 @@ const Region = require("../models/region");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
-// Display alist of all REgions
+// Display alist of all Regions
 exports.region_list = asyncHandler(async (req, res, next) => {
   const allRegions = await Region.find().sort({ name: 1 }).exec();
   res.render("region_list", {
@@ -36,12 +36,79 @@ exports.region_detail = asyncHandler(async (req, res, next) => {
 
 // Display Region create form on GET.
 exports.pokmon_create_get = (req, res, next) => {
-  res.render("region_form", { title: "Make pokemon" });
+  res.render("region_form", { title: "Make region" });
 };
 
-// Handle Pokemon create on POST.
-// Handle Region create GET.
+// Handle Region create on POST.
+exports.region_create_post = [
+  // Validate and sanitize fields.
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name must be specified.")
+    .isAlphanumeric()
+    .withMessage("Name has non-alphanumeric characters."),
+  body("number", "Invalid number")
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create Region object with escaped and trimmed data
+    const region = new Region({
+      name: req.body.first_name,
+      description: req.body.family_name,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      res.render("region_form", {
+        title: "Create Region",
+        region: region,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+
+      // Save region.
+      await region.save();
+      // Redirect to new region.
+      res.redirect(region.url);
+    }
+  }),
+];
+
 //display Region delete form on get
+exports.region_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of the region
+  const [region] = await Promise.all([Region.findById(req.params.id).exec()]);
+
+  if (region === null) {
+    // No results.
+    res.redirect("/pokedex/regions");
+  }
+
+  res.render("region_delete", {
+    title: "Delete Region",
+    region: region,
+  });
+});
+
 //handle Region delete form on post
+exports.region_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of region
+  const [region] = await Promise.all([Region.findById(req.params.id).exec()]);
+
+  // Delete object and redirect to the list of region.
+  await Region.findByIdAndRemove(req.body.regionid);
+  res.redirect("/pokedex/region");
+});
+
 //display Region update form on get
 //handle Region update form on post
