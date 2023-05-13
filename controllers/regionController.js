@@ -38,3 +38,10 @@ exports.region_detail = asyncHandler(async (req, res, next) => {
 exports.pokmon_create_get = (req, res, next) => {
   res.render("region_form", { title: "Make pokemon" });
 };
+
+// Handle Pokemon create on POST.
+// Handle Region create GET.
+//display Region delete form on get
+//handle Region delete form on post
+//display Region update form on get
+//handle Region update form on post

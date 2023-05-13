@@ -14,11 +14,8 @@ exports.pokemon_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific Pokemon.
 exports.pokemon_detail = asyncHandler(async (req, res, next) => {
-  // Get details of the pokemon and ?? (in parallel)
-  const [pokemon, allPokemon] = await Promise.all([
-    Pokemon.findById(req.params.id).exec(),
-    //Book.find({ author: req.params.id }, "title summary").exec(),
-  ]);
+  // Get details of the pokemon
+  const [pokemon] = await Promise.all([Pokemon.findById(req.params.id).exec()]);
 
   if (pokemon === null) {
     // No results.
@@ -30,7 +27,6 @@ exports.pokemon_detail = asyncHandler(async (req, res, next) => {
   res.render("pokemon_detail", {
     title: "Pokemon Detail",
     pokemon: pokemon,
-    //author_books: allBooksByAuthor,
   });
 });
 
@@ -89,49 +85,32 @@ exports.pokemon_create_post = [
 ];
 
 // Display Author delete form on GET.
-exports.author_delete_get = asyncHandler(async (req, res, next) => {
-  // Get details of author and all their books (in parallel)
-  const [author, allBooksByAuthor] = await Promise.all([
-    Author.findById(req.params.id).exec(),
-    Book.find({ author: req.params.id }, "title summary").exec(),
-  ]);
+exports.pokemon_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of pokemon
+  const [pokemon] = await Promise.all([Author.findById(req.params.id).exec()]);
 
-  if (author === null) {
+  if (pokemon === null) {
     // No results.
-    res.redirect("/catalog/authors");
+    res.redirect("/");
   }
 
-  res.render("author_delete", {
-    title: "Delete Author",
-    author: author,
-    author_books: allBooksByAuthor,
+  res.render("pokemon_delete", {
+    title: "Delete Pokemon",
+    pokemon: pokemon,
   });
 });
 
-// Handle Author delete on POST.
-exports.author_delete_post = asyncHandler(async (req, res, next) => {
-  // Get details of author and all their books (in parallel)
-  const [author, allBooksByAuthor] = await Promise.all([
-    Author.findById(req.params.id).exec(),
-    Book.find({ author: req.params.id }, "title summary").exec(),
-  ]);
+// Handle Pokemon delete on POST.
+exports.pokemon_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of pokemon
+  const [pokemon] = await Promise.all([Pokemon.findById(req.params.id).exec()]);
 
-  if (allBooksByAuthor.length > 0) {
-    // Author has books. Render in same way as for GET route.
-    res.render("author_delete", {
-      title: "Delete Author",
-      author: author,
-      author_books: allBooksByAuthor,
-    });
-    return;
-  } else {
-    // Author has no books. Delete object and redirect to the list of authors.
-    await Author.findByIdAndRemove(req.body.authorid);
-    res.redirect("/catalog/authors");
-  }
+  // Delete object and redirect to the list of pokemon.
+  await Pokemon.findByIdAndRemove(req.body.authorid);
+  res.redirect("/");
 });
 
-// Display Author update form on GET.
+// Display POkemon update form on GET.
 exports.author_update_get = asyncHandler(async (req, res, next) => {
   res.send("NOT IMPLEMENTED: Author update GET");
 });
