@@ -77,7 +77,30 @@ exports.pokemon_create_post = [
 ];
 
 //display type delete form on get
+exports.type_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of the region
+  const [type] = await Promise.all([Type.findById(req.params.id).exec()]);
+
+  if (type === null) {
+    // No results.
+    res.redirect("/pokedex/types");
+  }
+
+  res.render("type_delete", {
+    title: "Delete Type",
+    type: type,
+  });
+});
 
 //handle type delete form on post
+exports.type_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of type
+  const [type] = await Promise.all([Type.findById(req.params.id).exec()]);
+
+  // Delete object and redirect to the list of type.
+  await Type.findByIdAndRemove(req.body.regionid);
+  res.redirect("/pokedex/types");
+});
+
 //display type update form on get
 //handle type update form on post

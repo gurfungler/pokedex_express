@@ -107,7 +107,7 @@ exports.region_delete_post = asyncHandler(async (req, res, next) => {
 
   // Delete object and redirect to the list of region.
   await Region.findByIdAndRemove(req.body.regionid);
-  res.redirect("/pokedex/region");
+  res.redirect("/pokedex/regions");
 });
 
 //display Region update form on get

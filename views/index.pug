@@ -2,4 +2,13 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #[em The Pokedex], a very basic Express website developed by me :3
+
+  h1 Dynamic content
+
+  p The pokedex has the following record counts:
+  
+  ul
+    li #[strong Pokemon:] !{pokemon_count}
+    li #[strong Regions:] !{region_count}
+    li #[strong Types:] !{type_count}
