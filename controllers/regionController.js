@@ -35,9 +35,9 @@ exports.region_detail = asyncHandler(async (req, res, next) => {
 });
 
 // Display Region create form on GET.
-exports.pokmon_create_get = (req, res, next) => {
+exports.region_create_get = asyncHandler(async (req, res, next) => {
   res.render("region_form", { title: "Make region" });
-};
+});
 
 // Handle Region create on POST.
 exports.region_create_post = [
@@ -111,4 +111,10 @@ exports.region_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 //display Region update form on get
+exports.region_update_get = asyncHandler(async (req, res, next) => {
+  //NOT IMPLIMENTED
+});
 //handle Region update form on post
+exports.region_update_post = asyncHandler(async (req, res, next) => {
+  //NOT IMPLIMENTED
+});

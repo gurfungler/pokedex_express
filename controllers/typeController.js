@@ -32,12 +32,12 @@ exports.type_detail = asyncHandler(async (req, res, next) => {
 });
 
 //display type create form on get
-exports.pokmon_create_get = (req, res, next) => {
+exports.type_create_get = asyncHandler(async (req, res, next) => {
   res.render("type_form", { title: "Make Type" });
-};
+});
 
 //handle type create form on post
-exports.pokemon_create_post = [
+exports.type_create_post = [
   // Validate and sanitize fields.
   body("name")
     .trim()
@@ -102,5 +102,11 @@ exports.type_delete_post = asyncHandler(async (req, res, next) => {
   res.redirect("/pokedex/types");
 });
 
-//display type update form on get
-//handle type update form on post
+//display Type update form on get
+exports.type_update_get = asyncHandler(async (req, res, next) => {
+  //NOT IMPLIMENTED
+});
+//handle Type update form on post
+exports.type_update_post = asyncHandler(async (req, res, next) => {
+  //NOT IMPLIMENTED
+});
