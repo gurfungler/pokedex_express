@@ -1,5 +1,6 @@
 const Pokemon = require("../models/pokemon");
 const Type = require("../models/type");
+
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -55,9 +56,9 @@ exports.pokemon_detail = asyncHandler(async (req, res, next) => {
 });
 
 // Display Pokemon create form on GET.
-exports.pokmon_create_get = (req, res, next) => {
+exports.pokemon_create_get = asyncHandler(async (req, res, next) => {
   res.render("pokemon_form", { title: "Make pokemon" });
-};
+});
 
 // Handle Pokemon create on POST.
 exports.pokemon_create_post = [
