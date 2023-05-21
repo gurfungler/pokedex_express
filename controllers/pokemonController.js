@@ -70,10 +70,7 @@ exports.pokemon_create_post = [
     .withMessage("Name must be specified.")
     .isAlphanumeric()
     .withMessage("Name has non-alphanumeric characters."),
-  body("number", "Invalid number")
-    .optional({ checkFalsy: true })
-    .isISO8601()
-    .toDate(),
+  body("number", "Invalid number").isInt(),
   body("description", "Description must not be empty")
     .trim()
     .isLength({ min: 1 })
@@ -86,8 +83,9 @@ exports.pokemon_create_post = [
 
     // Create Pokemon object with escaped and trimmed data
     const pokemon = new Pokemon({
-      name: req.body.first_name,
-      description: req.body.family_name,
+      name: req.body.name,
+      description: req.body.description,
+      number: req.body.number,
     });
 
     if (!errors.isEmpty()) {

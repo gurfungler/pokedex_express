@@ -4,9 +4,9 @@ block content
   h1= title
 
   ul
-    each book in pokemon_list
+    each pokemon in pokemon_list
       li
-        a(href=pokemon.url) #{pokemon.title}
+        a(href=pokemon.url) #{pokemon.name}
 
     else
       li There are no pokemon.

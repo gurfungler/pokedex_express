@@ -4,11 +4,11 @@ const { body, validationResult } = require("express-validator");
 
 //display all types
 exports.type_list = asyncHandler(async (req, res, next) => {
-  const allTypes = await Type.find().sort({ name: 1 }).exec();
-  res.render("type_list", {
-    title: "Type List",
-    type_list: allTypes,
-  });
+  // const allTypes = await Type.find().sort({ name: 1 }).exec();
+  // res.render("type_list", {
+  //   title: "Type List",
+  //   type_list: allTypes,
+  // });
 });
 
 //display details for a specific type
