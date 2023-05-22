@@ -4,11 +4,11 @@ const { body, validationResult } = require("express-validator");
 
 //display all types
 exports.type_list = asyncHandler(async (req, res, next) => {
-  // const allTypes = await Type.find().sort({ name: 1 }).exec();
-  // res.render("type_list", {
-  //   title: "Type List",
-  //   type_list: allTypes,
-  // });
+  const allTypes = await Type.find().sort({ name: 1 }).exec();
+  res.render("type_list", {
+    title: "Type List",
+    type_list: allTypes,
+  });
 });
 
 //display details for a specific type
@@ -54,7 +54,7 @@ exports.type_create_post = [
 
     // Create Type object
     const type = new Type({
-      name: req.body.first_name,
+      name: req.body.name,
     });
 
     if (!errors.isEmpty()) {
@@ -98,7 +98,7 @@ exports.type_delete_post = asyncHandler(async (req, res, next) => {
   const [type] = await Promise.all([Type.findById(req.params.id).exec()]);
 
   // Delete object and redirect to the list of type.
-  await Type.findByIdAndRemove(req.body.regionid);
+  await Type.findByIdAndRemove(req.body.typeid);
   res.redirect("/pokedex/types");
 });
 

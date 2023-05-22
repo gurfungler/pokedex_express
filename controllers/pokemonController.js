@@ -1,30 +1,23 @@
 const Pokemon = require("../models/pokemon");
 const Type = require("../models/type");
+const Region = require("../models/region");
 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  // Get details of books, book instances, authors and genre counts (in parallel)
-  // const [
-  //   numBooks,
-  //   numBookInstances,
-  //   numAvailableBookInstances,
-  //   numAuthors,
-  //   numGenres,
-  // ] = await Promise.all([
-  //   Book.countDocuments({}).exec(),
-  //   BookInstance.countDocuments({}).exec(),
-  //   BookInstance.countDocuments({ status: "Available" }).exec(),
-  //   Author.countDocuments({}).exec(),
-  //   Genre.countDocuments({}).exec(),
-  // ]);
+  // Get details of pokemon, type, aand region counts (in parallel)
+  const [numPokemon, numTypes, numRegions] = await Promise.all([
+    Pokemon.countDocuments({}).exec(),
+    Type.countDocuments({}).exec(),
+    Region.countDocuments({}).exec(),
+  ]);
 
   res.render("index", {
     title: "Pokedex Home",
-    pokemon_count: "3",
-    region_count: "3",
-    type_count: "3",
+    pokemon_count: numPokemon,
+    type_count: numTypes,
+    region_count: numRegions,
   });
 });
 

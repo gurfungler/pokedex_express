@@ -13,7 +13,7 @@ const PokemonSchema = new Schema({
 // Virtual for pokemon's URL
 PokemonSchema.virtual("url").get(function () {
   // We don't use an arrow function as we'll need the this object
-  return `/pokedex/pokemons/${this._id}`;
+  return `/pokedex/pokemon/${this._id}`;
 });
 
 // Export model

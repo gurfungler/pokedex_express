@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 #{title}: #{region.name}
+    p Do you really want to delete this Region?
+
+    form(method='POST' action='')
+      div.form-group
+        input#regionid.form-control(type='hidden',name='regionid', required='true', value=region._id )
+
+      button.btn.btn-primary(type='submit') Delete

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Name: #{region.name}
+
+
+  p #[strong generation:] #{region.generation}
+    hr
+  p
+    a(href=region.url+'/delete') Delete region

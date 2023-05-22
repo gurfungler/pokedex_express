@@ -1,4 +1,5 @@
 const Region = require("../models/region");
+const Pokemon = require("../models/pokemon");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -29,7 +30,6 @@ exports.region_detail = asyncHandler(async (req, res, next) => {
   res.render("region_detail", {
     title: "Region Detail",
     region: region,
-    generation: generation,
     pokemon: allPokemon,
   });
 });
@@ -49,10 +49,7 @@ exports.region_create_post = [
     .withMessage("Name must be specified.")
     .isAlphanumeric()
     .withMessage("Name has non-alphanumeric characters."),
-  body("number", "Invalid number")
-    .optional({ checkFalsy: true })
-    .isISO8601()
-    .toDate(),
+  body("generation", "Invalid number").isInt(),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -61,8 +58,8 @@ exports.region_create_post = [
 
     // Create Region object with escaped and trimmed data
     const region = new Region({
-      name: req.body.first_name,
-      description: req.body.family_name,
+      name: req.body.name,
+      generation: req.body.generation,
     });
 
     if (!errors.isEmpty()) {

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 #{title}: #{type.name}
+    p Do you really want to delete this Type?
+
+    form(method='POST' action='')
+      div.form-group
+        input#typeid.form-control(type='hidden',name='typeid', required='true', value=type._id )
+
+      button.btn.btn-primary(type='submit') Delete
